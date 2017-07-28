@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+canvas{
+	background-color: #cccccc;
+}
+</style>
+
+</head>
+
+<canvas id="ecanvas" width="500" height="300"></canvas>
+
+<body onclick="getMousePos(ecanvas, event)">
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '308346049636351',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v2.10'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script>
+console.log("AAA");
+
+var c = document.getElementById("ecanvas").getContext("2d");
+var img = new Image();
+
+imgx=30;
+imgy=50;
+imgw=120;
+imgh=51;
+
+img.onload = function()
+{
+	c.drawImage(img, imgx, imgy);
+}
+
+img.src = "fbutton.png";
+
+shareFB = function() {
+	console.log("Share fb");
+	//window.open("https://www.facebook.com/sharer.php?u=https://google.com","width=300", '_blank', 'toolbar=yes, menubar=yes');
+	
+	
+  FB.ui({
+    method: 'share',
+    display: 'popup',
+    href: 'https://google.com',
+  }, function(response){
+  });
+}
+
+function getMousePos(canvas, ev)
+{
+	var r= canvas.getBoundingClientRect();
+    var x = ev.clientX - r.left;
+    var y = ev.clientY - r.top;
+	
+	if(x >= imgx && x <= imgx+imgw && y>= imgy && y<= imgy+imgy)
+	{
+		shareFB();
+		console.log("button clicked");
+	}
+	
+    console.log("x: " + x + " y: " + y);
+}
+
+
+</script>
+
+<div>
+Telur 15000 <br />
+Ayam Goreng 3000 
+</div>
+</body>
+</html>
